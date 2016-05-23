@@ -37,13 +37,13 @@ public class OpenglEsLearningGame extends ApplicationAdapter {
 		// X, Y,
 		// R, G, B, A
 		0, 0,
-		1.0f, 0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 1.0f, 1.0f,
 
 		100, 100f,
-		1.0f, 0.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 0.0f, 1.0f,
 
 		100f, 0,
-		1.0f, 0.0f, 0.0f, 1.0f
+		1.0f, 1.0f, 1.0f, 1.0f
 	};
 
 	private OrthographicCamera cam;
@@ -61,6 +61,7 @@ public class OpenglEsLearningGame extends ApplicationAdapter {
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
 		cam = new OrthographicCamera();
+		cam.setToOrtho(true);
 		ShaderProgram.pedantic = true;
 		shaderProgram = new ShaderProgram(
 				Gdx.files.internal("shader.vert"),
@@ -82,9 +83,6 @@ public class OpenglEsLearningGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-
-		cam.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
 		shaderProgram.begin();
 		shaderProgram.setUniformMatrix("u_projTrans", cam.combined);
 		mesh.render(shaderProgram, GL20.GL_TRIANGLES, 0, verts.length/NUM_COMPONENTS);
